@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gericht{% endblock %}
+
+{% block body %}
+    <h1>Gericht</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ gericht.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ gericht.name }}</td>
+            </tr>
+            <tr>
+                <th>Beschreibung</th>
+                <td>{{ gericht.beschreibung }}</td>
+            </tr>
+            <tr>
+                <th>Preis</th>
+                <td>{{ gericht.preis }}</td>
+            </tr>
+            <tr>
+                <th>Bild</th>
+                <td>{{ gericht.bild }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('gericht.app_gericht_index') }}">back to list</a>
+
+    <a href="{{ path('gericht.app_gericht_edit', {'id': gericht.id}) }}">edit</a>
+
+    {{ include('gericht/_delete_form.html.twig') }}
+{% endblock %}

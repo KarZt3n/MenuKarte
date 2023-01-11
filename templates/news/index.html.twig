@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}News index{% endblock %}
+
+{% block body %}
+    <h1>News index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Teaser</th>
+                <th>Bodytext</th>
+                <th>CreateAt</th>
+                <th>ModifyAt</th>
+                <th>Hide</th>
+                <th>Deleted</th>
+                <th>IsEvent</th>
+                <th>DailyEvent</th>
+                <th>EventStart</th>
+                <th>EventEnde</th>
+                <th>Bild</th>
+                <th>Bilder</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for news in news %}
+            <tr>
+                <td>{{ news.id }}</td>
+                <td>{{ news.name }}</td>
+                <td>{{ news.slug }}</td>
+                <td>{{ news.teaser }}</td>
+                <td>{{ news.bodytext }}</td>
+                <td>{{ news.createAt ? news.createAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.modifyAt ? news.modifyAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.hide ? 'Yes' : 'No' }}</td>
+                <td>{{ news.deleted ? 'Yes' : 'No' }}</td>
+                <td>{{ news.isEvent ? 'Yes' : 'No' }}</td>
+                <td>{{ news.dailyEvent ? 'Yes' : 'No' }}</td>
+                <td>{{ news.eventStart ? news.eventStart|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.eventEnde ? news.eventEnde|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ news.bild }}</td>
+                <td>{{ news.bilder ? news.bilder|json_encode : '' }}</td>
+                <td>
+                    <a href="{{ path('app_news_show', {'id': news.id}) }}">show</a>
+                    <a href="{{ path('app_news_edit', {'id': news.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="16">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_news_new') }}">Create new</a>
+{% endblock %}

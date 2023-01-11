@@ -1,0 +1,6 @@
+{# admin/field/viewSlug.html.twig #}
+    {% set editUrl = ea_url()
+        .setController(ea.crud.controllerFqcn)
+        .setAction('edit')
+        .setEntityId(entity.primaryKeyValue) %}
+<a href="news/{{ field.value }}" id="Edit_{{ entity.primaryKeyValueAsString }}" target="_blank">/news/{{ field.value }}</a>

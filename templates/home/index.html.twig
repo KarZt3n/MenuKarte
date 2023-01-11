@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+{% block body %}
+
+    {{ dump() }}
+
+    <section class="intro-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h2>Unsere Öffnungszeiten</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <p><span class="yellowB6C121">WALDBAD: </span><br>WIR HABEN TÄGLICH VON 09-20 UHR, AB 22.08.22 TÄGLICH VON 11-18 UHR GEÖFFNET!</p>
+                    <p>BISTRO: WIR HABEN TÄGLICH VON 09-20 UHR, AB 22.08.22 TÄGLICH VON 11-18 UHR GEÖFFNET!</p>
+{#                    <a href="#" class="site-btn">Try it now</a>#}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nächstes Event -->
+    {% if nextEvent %}
+        <section class="hero-section">
+            <div class="hero-slider owl-carousel">
+                {#            {% for gericht in gerichte %}#}
+                <div class="hs-item">
+                    <div class="container">
+{#                        <h3 class="text-white">Nächste Veranstaltung:</h3>#}
+                        {% if nextEvent.bild %}
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h2><span>{{ nextEvent.name }}</span>!</h2>
+                                    <p>{{ nextEvent.teaser|raw }}</p>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="hr-img">
+                                        <img src="{{ asset('/fileadmin/bilder/' ~ nextEvent.bild) }}" alt="" style="height: 400px; padding-left:25px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="{{ path('app_news_showNews', {slug: nextEvent.slug})     }}" class="site-btn">Info</a>
+
+                            {#                        <a href="{{ path('app_news_showNews')     }}" class="site-btn">Alle Events</a>#}
+                        {% endif %}
+                    </div>
+                </div>
+                {#            {% endfor %}#}
+            </div>
+        </section>
+    {% endif %}
+
+    <!-- lastNews -->
+    <section class="intro-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title">
+                        <h2>{{ lastNews.name }}</h2>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div>
+                        {{ lastNews.teaser }}
+                    </div>
+                    <a href="{{ path('app_news_showNews', {slug: lastNews.slug})     }}" class="site-btn">Info</a>
+                    {#                    <a href="#" class="site-btn">Try it now</a>#}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Das Bistro -->
+    <section class="hero-section">
+        <div class="hero-slider owl-carousel">
+            {% for gericht in gerichte %}
+                <div class="hs-item">
+                    <div class="container">
+                        <h3 class="text-white">Das Bistro.</h3>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h2><span>{{ gericht.name }}</span>!</h2>
+                                <div class="text-white">{{ gericht.beschreibung|raw }}</div>
+                                <br><br>
+                                <a href="{{ path('menu') }}" class="site-btn">Menükarte</a>
+{#                                    <a href="{{ path('bestellen', {id: gericht.id}) }}" class="site-btn sb-c2">Bestellen</a>#}
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="hr-img">
+                                    <img src="{{ asset('/fileadmin/bilder/' ~ gericht.bild) }}" alt="" style="height: 400px">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    <!-- Hero section end -->
+{% endblock %}

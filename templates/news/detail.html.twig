@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <br><br>
+    <div class="container mb-100">
+        <br>
+        <div>
+            {% if news.createAt %}
+                <p class="date">
+                    Borkheide, {{ news.createAt|date('d M Y') }}
+                </p>
+            {% endif %}
+
+            <h2>{{ news.name }}</h2>
+        </div>
+        <br>
+        {% if news.subtitle %}
+            <div class="sub-text">
+                <h3 style="font-size: 1.5em;">{{ news.subtitle }}</h3>
+            </div>
+        {% endif %}
+
+        <div class="">
+            <p>{{ news.bodytext }}</p>
+        </div>
+
+    </div>
+
+
+{% endblock %}

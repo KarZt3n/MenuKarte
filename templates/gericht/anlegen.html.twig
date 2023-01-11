@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% use "bootstrap_base_layout.html.twig" %}
+
+{% block body %}
+
+    <br><br>
+    <div class="container">
+        <h2>Gericht anlegen</h2>
+        <br>
+        {{ form_start(anlegenForm) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(anlegenForm) }}
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {{ form_row(anlegenForm.name) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(anlegenForm.beschreibung) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(anlegenForm.bild) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(anlegenForm.kategorie) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                {{ form_row(anlegenForm.preis) }}
+            </div>
+        </div>
+        {{ form_end(anlegenForm) }}
+{#        {{ form(anlegenForm) }}#}
+
+    </div>
+
+{% endblock %}

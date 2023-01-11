@@ -1,0 +1,15 @@
+{% apply inline_css %}
+   <style>
+       h1{
+           color: #004d00;
+       }
+   </style>
+
+    <h1>Hallo Kellner</h1>
+
+    <h3>Der Besteller mit der email {{ from }} hat folgende Nachricht geschickt:</h3>
+
+    <p>
+        {{ text }}
+    </p>
+{% endapply %}

@@ -1,0 +1,41 @@
+{#{% extends 'base.html.twig' %}#}
+
+{#{% block title %}Gericht index{% endblock %}#}
+
+{#{% block body %}#}
+{#    <h1>Gericht index</h1>#}
+
+{#    <table class="table">#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>Id</th>#}
+{#                <th>Name</th>#}
+{#                <th>Beschreibung</th>#}
+{#                <th>Preis</th>#}
+{#                <th>Bild</th>#}
+{#                <th>actions</th>#}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#        {% for gericht in gerichte %}#}
+{#            <tr>#}
+{#                <td>{{ gericht.id }}</td>#}
+{#                <td>{{ gericht.name }}</td>#}
+{#                <td>{{ gericht.beschreibung }}</td>#}
+{#                <td>{{ gericht.preis }}</td>#}
+{#                <td>{{ gericht.bild }}</td>#}
+{#                <td>#}
+{#                    <a href="{{ path('gericht.app_gericht_show', {'id': gericht.id}) }}">show</a>#}
+{#                    <a href="{{ path('gericht.app_gericht_edit', {'id': gericht.id}) }}">edit</a>#}
+{#                </td>#}
+{#            </tr>#}
+{#        {% else %}#}
+{#            <tr>#}
+{#                <td colspan="6">no records found</td>#}
+{#            </tr>#}
+{#        {% endfor %}#}
+{#        </tbody>#}
+{#    </table>#}
+
+{#    <a href="{{ path('gericht.app_gericht_new') }}">Create new</a>#}
+{#{% endblock %}#}

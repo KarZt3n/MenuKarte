@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Gericht{% endblock %}
+
+{% block body %}
+    {% for message in app.flashes('erfolg') %}
+        <div class="alert alert-success">
+            <h3>{{ message }}</h3>
+        </div>
+    {% endfor %}
+
+    <br><br>
+    <div class="container">
+        <h2>Gerichte bearbeiten</h2>
+        <br>
+        {{ include('gericht/_form.html.twig', {'button_label': 'Update'}) }}
+
+        <a href="{{ path('menu') }}">back to list</a>
+
+        {{ include('gericht/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

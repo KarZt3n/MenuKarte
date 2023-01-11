@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <br><br>
+    <div class="container mb-100">
+        <div>
+            <h2>Kontakt</h2>
+            <br>
+            <div>
+                {{ form_start(kontaktForm) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(kontaktForm) }}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(kontaktForm.vorname) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(kontaktForm.nachname) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(kontaktForm.email) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(kontaktForm.betreff) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(kontaktForm.nachricht) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(kontaktForm.senden) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bc004d00">
+        <div class="container">
+            <div class="pt-5 text-white">
+                <h2>Impressum und Datenschutz</h2>
+            </div>
+            <div class="pt-4 text-wh" style="font-size: 0.85em;">
+                Die grafische Gestaltung und technische Umsetzung dieser Webseite wurde vom Vereinsmitglied
+                <i class="fa fa-external-link" aria-hidden="true"></i><a class="yellowB6C121" href="https://www.linkedin.com/in/karzten/" target="_blank">Karsten Saß</a> realisiert.
+                Für den Inhalt bleibt der Herausgeber dieser Webseite verantwortlich. Bei technischen Problemen nehmen Sie bitte Kontakt mit dem Webmaster auf.
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}

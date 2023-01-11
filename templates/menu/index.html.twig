@@ -1,0 +1,181 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% for message in app.flashes('warenkorb') %}
+        <div class="alert alert-success">
+            <h3>{{ message }}</h3>
+        </div>
+    {% endfor %}
+
+    <div class="container">
+        <!-- Playlist section -->
+        <section class="playlist-section spad">
+            <div class="container-fluid">
+                <div class="kat-header">
+                    <div class="section-title pr-10">
+                        <div class="hs-text ">
+                            <h2><span class="color004d00">Menu</span><span class="color58B5E0">Karte</span></h2>
+                        </div>
+                        {#                    <div class="hs-text"><h2><span>Menu</span>karte</h2></div>#}
+
+                        {#                    <h2>Menukarte</h2>#}
+                    </div>
+                    <div class="container">
+                        <ul class="playlist-filter controls">
+                            <li class="control" data-filter="all">Alle</li>
+                            {% for kategorie in kategorien %}
+                                {% if kategorie.hide == false %}
+                                    <li class="control" data-filter=".{{ kategorie.name }}">{{ kategorie.name }}</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+
+                {% if is_granted('ROLE_BISTRO_USER') %}
+                    <div class="container">
+                        <a href="{{
+                            ea_url()
+                            .setController('App\\Controller\\Admin\\GerichtCrudController')
+                            .setAction('new')
+                        }}" class="btn btn-outline-danger btn-sm float-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            Gericht hinzufügen
+                        </a>
+                        <a href="{{
+                            ea_url()
+                                .setController('App\\Controller\\Admin\\KategorieCrudController')
+                                .setAction('new')
+                        }}" class="btn btn-outline-danger btn-sm float-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
+                                <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                                <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                            </svg>
+                            Kategorie hinzufügen
+                        </a>
+                    <br><br>
+                    </div>
+                {% endif %}
+
+                <div class="clearfix"></div>
+
+                <div class="kategorie-area">
+                    {% for kategorie in kategorien %}
+                        {% if kategorie.hide == false %}
+                            <div class="mix col-lg-3 col-md-4 col-sm-6 {{ kategorie.name }}">
+                                <div class="text-left">
+                                    <h3><span>{{ kategorie.name }}</span></h3>
+                                </div>
+                            </div>
+                            <div class="mix {{ kategorie.name }}">
+                                <hr>
+                                <br>
+                            </div>
+                            <div class="row playlist-area">
+                                {% for gericht in gerichte %}
+                                    {% if gericht.kategorie == kategorie.name %}
+                                        <div class="mix col-lg-3 col-md-4 col-sm-6 {{ gericht.kategorie }}">
+                                            <div class="playlist-item text-left">
+                                                <div class="shadow-sm mb-5 bg-white rounded">
+
+                                                    <img src="{{ asset('/fileadmin/bilder/' ~ gericht.bild)}}" alt="" height="150px">
+
+                                                    {% if is_granted('ROLE_BISTRO_USER') %}
+                                                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" >
+                                                            <div class="btn-group small" role="group" aria-label="First group">
+                                                                <a href="{{ ea_url()
+                                                                    .setController('App\\Controller\\Admin\\GerichtCrudController')
+                                                                    .setAction('edit')
+                                                                    .setEntityId(gericht.id)
+                                                                }}" role="button" class="p-1 btn btn-secondary btn-toolbar-side-150" >
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+                                                                    </svg>
+                                                                </a>
+{#                                                                <a href="{{ path('gericht.edit', {id: gericht.id}) }}" role="button" class="p-1 btn btn-secondary btn-toolbar-side-150" >#}
+{#                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">#}
+{#                                                                        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>#}
+{#                                                                        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>#}
+{#                                                                    </svg>#}
+{#                                                                </a>#}
+                                                            </div>
+                                                        </div>
+                                                        <script>
+
+                                                        </script>
+                                                    {% endif %}
+
+                                                    <div class="p-2" style="height: 112px">
+                                                        <h5>{{ gericht.name }}</h5>
+{#                                                        <p class="mt-2">{{ gericht.beschreibung|raw  }}</p>#}
+                                                        <p class="mt-2 descriptionColour">{{ gericht.beschreibung|striptags|length > 50 ? gericht.beschreibung|slice(0, 50)|raw ~ '...' : gericht.beschreibung|raw  }}</p>
+
+                                                    </div>
+                                                    <a class="btn btn-outline-danger btn-sm"
+                                                       style="width: 100%"
+                                                       href="{{ path('warenkorb.add', {id: gericht.id}) }}" role="button">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus-fill" style="margin-top: -5px;" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"></path>
+                                                        </svg>
+                                                        &nbsp; {{ gericht.preis|number_format(2, '.', ',') }} EUR
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+
+
+                    {% endfor %}
+                </div>
+
+{#                <div class="row playlist-area">#}
+{#                    {% for gericht in gerichte %}#}
+{#                        <div class="mix col-lg-3 col-md-4 col-sm-6 {{ gericht.kategorie }}">#}
+{#                            <div class="playlist-item text-left">#}
+{#                                <div class="shadow-sm mb-5 bg-white rounded">#}
+{#                                    <img src="{{ ('bilder/' ~ gericht.bild)}}" alt="" height="150px">#}
+{#                                    <div class="p-2" style="margin-top: -25px">#}
+{#                                        <h5>{{ gericht.name }}</h5>#}
+{#                                        <p class="mt-2">{{ gericht.beschreibung }}</p>#}
+{#                                    </div>#}
+{#                                    <a class="btn btn-outline-danger btn-sm"#}
+{#                                       style="width: 100%"#}
+{#                                       href="{{ path('bestellen', {id: gericht.id}) }}" role="button">#}
+{#                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-plus-fill" style="margin-top: -5px;" viewBox="0 0 16 16">#}
+{#                                            <path fill-rule="evenodd" d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zM8.5 8a.5.5 0 0 0-1 0v1.5H6a.5.5 0 0 0 0 1h1.5V12a.5.5 0 0 0 1 0v-1.5H10a.5.5 0 0 0 0-1H8.5V8z"></path>#}
+{#                                        </svg>#}
+{#                                        &nbsp; {{ gericht.preis|number_format(2, '.', ',') }} EUR#}
+{#                                    </a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+            </div>
+        </section>
+        <!-- Playlist section end -->
+    </div>
+
+{#    <!-- Back to top button -->#}
+{#    <button#}
+{#            type="button"#}
+{#            class="btn btn-primary btn-floating btn-lg"#}
+{#            id="btn-back-to-top"#}
+{#    >#}
+{#        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up" viewBox="0 0 16 16">#}
+{#            <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5z"/>#}
+{#        </svg>#}
+{#        <i class="fas fa-arrow-up"></i>#}
+{#    </button>#}
+
+{% endblock %}
